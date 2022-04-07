@@ -21,7 +21,8 @@ class SendEmail:
         # This is data to test. It should be replaced by data in DB
         userEmail = UserEmailList(1, "Mr", "Deiby Montoya", "deiby.sk@hotmail.com")
         userEmail2 = UserEmailList(2, "Mrs", "Leandro Lopez", "dmontoya.sk@gmail.com")
-        userEmailList = [userEmail, userEmail2]
+        userEmail3 = UserEmailList(3, "Ms", "Jessica Alvarez", "jessica.alvarezmir@gmail.com")
+        userEmailList = [userEmail, userEmail2, userEmail3]
 
         # Opening the file. It should be replaced by data in DB.
         file = open("template1.txt", "r")
