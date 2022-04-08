@@ -34,7 +34,7 @@ table.heading("Name",text="Name",anchor=CENTER)
 table.heading("Subject",text="Subject",anchor=CENTER)
 table.heading("Message",text="Message",anchor=CENTER)
 
-def actualizar():
+def update():
     dbconnection = mysql.connector(host="localhost",
     user="root",
     passwd="password123",
