@@ -1,4 +1,5 @@
 from ast import Name
+from cgitb import text
 from distutils.util import execute
 from tkinter import *
 from tkinter import messagebox
@@ -12,10 +13,10 @@ window.geometry("700x700")
 window["bg"] = "#FFF"
 
 myID = StringVar();
-name = StringVar()
-subject = StringVar()
-message = StringVar()
-image = StringVar()
+Vname = StringVar()
+Vsubject = StringVar()
+Vmessage = StringVar()
+Vimage = StringVar()
 
 email_frame = Frame(window)
 email_frame.pack()
@@ -69,7 +70,7 @@ def update():
     database="python")
 
     try:
-        data=name.get(),subject.get(),message.get()
+        data=Vname.get(),Vsubject.get(),Vmessage.get()
         mycursor= dbconnection.cursor()
         mycursor.execute("UPDATE email_templates SET Name=?,Subject=?,Message=? WHERE Id="+ myID.get(),(data))
         dbconnection.commit()
@@ -87,14 +88,32 @@ def delete():
     mycursor= dbconnection.cursor()
 
     try:
-        data=name.get(),subject.get(),message.get()
-        
-        mycursor.execute("UPDATE email_templates SET Name=?,Subject=?,Message=? WHERE Id="+ myID.get(),(data))
+        if messagebox.askyesno(message="Are you sure you want to delete the row selected?",title="WARNING"):
+            mycursor.execute("DELETE FROM email_templates  WHERE Id="+ myID.get(),(data))
         dbconnection.commit()
     except:
         messagebox.showwarning("WARNING","An error has ocurred trying to update the list")
         pass
     show()
+
+e1 = Entry(email_frame,textvariable=myID)
+
+labelName=Label(email_frame,text="Name")
+labelName.place(x=50,y=10)
+e2=Entry(email_frame,textvariable=Vname,width=50)
+e2.place(x=100,y=10)
+
+labelSubject=Label(email_frame,text="Subject")
+labelSubject.place(x=50,y=40)
+e2=Entry(email_frame,textvariable=Vsubject)
+e2.place(x=100,y=40)
+
+labelMessage=Label(email_frame,text="Message")
+labelMessage.place(x=280,y=40)
+e2=Entry(email_frame,textvariable=Vmessage,width=50)
+e2.place(x=320,y=40)
+
+
 
 label.pack()
 table.pack()
