@@ -37,7 +37,7 @@ table.heading("Message",text="Message",anchor=CENTER)
 def update():
     dbconnection = mysql.connector(host="localhost",
     user="root",
-    passwd="password123",
+    passwd="root",
     database="python")
 
 
