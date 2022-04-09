@@ -10,7 +10,7 @@ import mysql.connector
 window=Tk()
 window.title("Email Templates")
 window.geometry("700x700")
-window["bg"] = "#FFF"
+
 
 myID = StringVar();
 Vname = StringVar()
@@ -98,21 +98,22 @@ def delete():
 
 e1 = Entry(email_frame,textvariable=myID)
 
-labelName=Label(email_frame,text="Name")
-labelName.place(x=50,y=10)
-e2=Entry(email_frame,textvariable=Vname,width=50)
-e2.place(x=100,y=10)
+labelName=Label(window,text="Name")
+labelName.place(x=50,y=300)
+e2=Entry(window,textvariable=Vname,width=50)
+e2.place(x=100,y=300)
 
-labelSubject=Label(email_frame,text="Subject")
-labelSubject.place(x=50,y=40)
-e2=Entry(email_frame,textvariable=Vsubject)
-e2.place(x=100,y=40)
+labelSubject=Label(window,text="Subject")
+labelSubject.place(x=50,y=330)
+e2=Entry(window,textvariable=Vsubject)
+e2.place(x=100,y=330)
 
-labelMessage=Label(email_frame,text="Message")
-labelMessage.place(x=280,y=40)
-e2=Entry(email_frame,textvariable=Vmessage,width=50)
-e2.place(x=320,y=40)
+labelMessage=Label(window,text="Message")
+labelMessage.place(x=50,y=380)
+e2=Entry(window,textvariable=Vmessage,width=50)
+e2.place(x=100,y=380)
 
+buttonAdd = Button
 
 
 label.pack()
