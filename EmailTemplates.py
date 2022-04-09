@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import tkinter
-import mysql.connector as mysql
+import mysql.connector 
 
 window=Tk()
 window.title("Email Templates")
