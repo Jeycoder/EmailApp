@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import tkinter
-import mysql.connector
+
 
 window = Tk()
 window.title("Email Templates")
@@ -28,7 +28,7 @@ table.column("Id", anchor=CENTER, width=80)
 table.column("Name", anchor=CENTER, width=120)
 table.column("Subject", anchor=CENTER, width=120)
 table.column("Message", anchor=CENTER, width=120)
-table.column("Image", anchor=CENTER, width=120)
+table.column("Actions", anchor=CENTER, width=120)
 
 # Setting the Heading
 table.heading("#0", text="", anchor=CENTER)
@@ -54,9 +54,10 @@ table.bind("<Double-1>", clickSelector)
 # SHOW TABLE
 def show():
     dbconnection = mysql.connector.connect(host="localhost",
-                                           user="root",
-                                           password="root",
-                                           database="python")
+                                           user="jessica",
+                                           password="Valledupar123",
+                                           database="python",
+                                           auth_plugin="mysql_native_password")
     mycursor = dbconnection.cursor()
     data = table.get_children()
     for element in data:
@@ -75,7 +76,8 @@ def add():
     dbconnection = mysql.connector.connect(host="localhost",
                                            user="root",
                                            password="root",
-                                           database="python")
+                                           database="python",
+                                           auth_plugin="mysql_native_password")
 
     try:
         data = Vname.get(), Vsubject.get(), Vmessage.get()

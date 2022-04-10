@@ -1,6 +1,7 @@
 from tkinter import *
 
-class report_list():
+
+class ReportList:
     def __init__(self, root):
         new_window = Toplevel(root)
         new_window.geometry("400x400")
@@ -8,5 +9,5 @@ class report_list():
         new_window.wait_visibility()
         new_window.grab_set_global()
 
-        #wait until new window closes
+        # wait until new window closes
         root.wait_window(new_window)

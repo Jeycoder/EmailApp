@@ -1,5 +1,7 @@
 from tkinter import *
-from windows.report_lists import  report_list
+from controllers.EmailTemplateController import EmailTemplateController
+from views.report_lists import ReportList
+
 
 class MainMenu(Frame):
 
@@ -14,7 +16,7 @@ class MainMenu(Frame):
 
         #Emails submenu
         emails_menu = Menu(self.menuBar)
-        emails_menu.add_command(label="Templates")
+        emails_menu.add_command(label="Templates", command=self.view_email_templates)
         emails_menu.add_command(label="Lists")
         emails_menu.add_command(label="Send")
         #add Emails menu to the Main Menu
@@ -22,18 +24,30 @@ class MainMenu(Frame):
 
         #Reports submenu
         reports_menu = Menu(self.menuBar)
-        reports_menu.add_command(label="Email Lists", command=self.window_reports_list)
+        reports_menu.add_command(label="Email Lists", command=self.view_reports_list)
         reports_menu.add_command(label="Email Templates")
         reports_menu.add_command(label="Emails Sent")
         # add Reports menu to the Main Menu
         self. menuBar.add_cascade(label="Reports", menu=reports_menu)
 
-    def window_reports_list(self):
+    #Call Email Templates View
+    def view_reports_list(self):
+        # block menu bar
+        self.menuBar.entryconfig('Reports', state=DISABLED)
+        self.menuBar.entryconfigure('Emails', state=DISABLED)
+        # Call new Window
+        win = ReportList(self.parent)
+        # Enabled menu bar
+        self.menuBar.entryconfig('Reports', state=NORMAL)
+        self.menuBar.entryconfigure('Emails', state=NORMAL)
+
+
+    def view_email_templates(self):
         # block menu bar
         self.menuBar.entryconfig('Reports', state=DISABLED)
         self.menuBar.entryconfigure('Emails', state=DISABLED)
         #Call new Window
-        win = report_list(self.parent)
+        win = EmailTemplateController(self.parent)
         #Enabled menu bar
         self.menuBar.entryconfig('Reports', state=NORMAL)
         self.menuBar.entryconfigure('Emails', state=NORMAL)
