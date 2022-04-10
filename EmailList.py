@@ -109,7 +109,7 @@ labelName.place(x=50, y=300)
 e2 = Entry(window, textvariable=Vname, width=50)
 e2.place(x=100, y=300)
 
-labelSubject = Label(window, text="Subject")
+labelSubject = Label(window, text="List")
 labelSubject.place(x=50, y=330)
 e2 = Entry(window, textvariable=VnumberEmails)
 e2.place(x=100, y=330)
