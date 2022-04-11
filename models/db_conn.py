@@ -3,7 +3,7 @@ import mysql.connector #connect to databse
 class DBConnection:
     def __init__(self) -> object:
        self.cursor = None
-       self.dbconnection = None
+       self.dbconnect = None
        self.rows = None
        self.host = "localhost"
        self.user = "jessica"
@@ -13,13 +13,13 @@ class DBConnection:
 
       #Connect to the database
     def conn(self):
-        self.dbconnection = mysql.connector.connect(host=self.host,
-                                               user=self.user,
-                                               password=self.password,
-                                               database=self.db,
-                                               auth_plugin=self.auth)
+        self.dbconnect = mysql.connector.connect(host=self.host,
+                                                 user=self.user,
+                                                 password=self.password,
+                                                 database=self.db,
+                                                 auth_plugin=self.auth)
 
-        self.cursor = self.dbconnection.cursor()
+        self.cursor = self.dbconnect.cursor()
         print("Conectado")
 
     #Fecth all Rows
@@ -29,6 +29,13 @@ class DBConnection:
         self.rows = self.cursor.fetchall() #Retrieve all Records
         self.close_cursor()
         return self.rows
+
+    def insert(self, query, args):
+        self.conn()  # connect to DB
+        if args != '':
+            self.cursor.execute(query,args)  # Execute Qyuery
+            self.dbconnect.commit()
+            self.close_cursor()
 
     #Close Cursor
     def close_cursor(self):

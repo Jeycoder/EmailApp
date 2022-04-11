@@ -8,10 +8,22 @@ class EmailTemplate:
         self.Id = 0
         self.Subject = ''
         self.Name = ''
-        self.email = ''
+        self.Email = ''
+        self.Image = ''
+
+    def __int__(self, id, subject, name, email, image):
+        self.Id = id
+        self.Subject = subject
+        self.Name = name
+        self.Email = email
+        self.Image = image
 
     # Retrieve all records in email_template table
     def fecth_all(self) -> object:
         dbconnect = DBConnection()
         return dbconnect.fecth_all("SELECT * FROM email_template")
 
+    #Insert new email Template
+    def add(self):
+        dbconnect = DBConnection()
+        dbconnect.insert("INSERT INTO email_template(Name,Subject,Message, Image) VALUES (%s,%s,%s, %s)",(self.Id, self.Name, self.Subject, self.Email, self.Image))
