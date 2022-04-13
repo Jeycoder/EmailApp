@@ -32,7 +32,6 @@ class EmailListsView:
         btn_add = Button(window, width=5, height=1, text="Add", command=self.addNewEmailTemplate)
         btn_add.pack(side=RIGHT)
 
-        window.grab_set_global()
         root.wait_window(window)  # wait until new window closes
 
     # CLICK SELECTOR
