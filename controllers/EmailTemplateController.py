@@ -17,11 +17,9 @@ class EmailTemplateController:
     #Add New Email template
     def add_email_template(self):
         #Attributes from View
-
         emailTemp = EmailTemplate()
-        self.id = emailTemp.id
-        self.Subject = emailTemp.subject
-        self.Name = emailTemp.name
-        self.Email = emailTemp.email
-        self.Image = emailTemp.image
-        add()
+        emailTemp.Name = self.view.txt_name
+        emailTemp.Subject = self.view.txt_subject
+        emailTemp.Email = self.view.txt_message
+        emailTemp.add()
+
