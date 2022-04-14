@@ -20,6 +20,7 @@ class EmailTemplateController:
         emailTemp = EmailTemplate()
         emailTemp.Name = self.view.txt_name
         emailTemp.Subject = self.view.txt_subject
-        emailTemp.Email = self.view.txt_message
-        emailTemp.add()
+        emailTemp.Message = self.view.txt_message
+        emailTemp.Image = self.view.txt_img
+        return emailTemp.add()
 

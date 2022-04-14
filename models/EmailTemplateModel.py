@@ -6,14 +6,16 @@ class EmailTemplate:
     def __init__(self):
         self.dbconnect = None
         self.Id = 0
-        self.Subject = ''
         self.Name = ''
+        self.Subject = ''
+        self.Message = ''
         self.Image = ''
 
-    def __int__(self, id, subject, name, image):
+    def __int__(self, id, name, subject,message, image):
         self.Id = id
-        self.Subject = subject
         self.Name = name
+        self.Subject = subject
+        self.Message = message
         self.Image = image
 
     # Retrieve all records in email_template table
@@ -24,4 +26,4 @@ class EmailTemplate:
     #Insert new email Template
     def add(self):
         dbconnect = DBConnection()
-        dbconnect.insert("INSERT INTO email_template(Name,Subject,Message, Image) VALUES (%s,%s, %s)",(self.Name, self.Subject, self.Email, self.Image))
+        dbconnect.insert("INSERT INTO email_template(Name,Subject,Message, Image) VALUES (%s,%s, %s,%s)",(self.Name, self.Subject, self.message, self.Image))
