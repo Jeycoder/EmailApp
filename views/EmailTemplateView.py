@@ -9,7 +9,7 @@ class EmailTemplateView:
         self.root = root
         window = Toplevel(root)  # Make new windows in the toplevel of main window
         window.wm_title("Email Templates")
-        window.geometry("700x300")
+        window.geometry("700x500")
 
         email_frame = Frame(window)
         email_frame.pack()
@@ -30,7 +30,7 @@ class EmailTemplateView:
 
         # Button Add
         btn_add = Button(window, width=5, height=1, text="Add", command=self.addNewEmailTemplate)
-        btn_add.pack(side=RIGHT)
+        btn_add.pack()
 
         root.wait_window(window)  # wait until new window closes
 
