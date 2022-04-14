@@ -26,4 +26,4 @@ class EmailTemplate:
     #Insert new email Template
     def add(self):
         dbconnect = DBConnection()
-        dbconnect.insert("INSERT INTO email_template(Name,Subject,Message, Image) VALUES (%s,%s,%s, %s)",(self.Id, self.Name, self.Subject, self.Email, self.Image))
+        dbconnect.insert("INSERT INTO email_template(Name,Subject,Message, Image) VALUES (%s,%s,%s, %s)",( self.Name, self.Subject, self.Email, self.Image))

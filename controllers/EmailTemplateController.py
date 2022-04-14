@@ -15,7 +15,13 @@ class EmailTemplateController:
         return emailTemp.fecth_all()
 
     #Add New Email template
-    def add_emai_template(self):
+    def add_email_template(self):
         #Attributes from View
 
         emailTemp = EmailTemplate()
+        self.id = emailTemp.id
+        self.Subject = emailTemp.subject
+        self.Name = emailTemp.name
+        self.Email = emailTemp.email
+        self.Image = emailTemp.image
+        add()

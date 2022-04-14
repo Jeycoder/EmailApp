@@ -9,7 +9,7 @@ class EmailTemplateView:
         self.root = root
         window = Toplevel(root)  # Make new windows in the toplevel of main window
         window.wm_title("Email Templates")
-        window.geometry("700x300")
+        window.geometry("700x400")
 
         email_frame = Frame(window)
         email_frame.pack()
@@ -30,7 +30,7 @@ class EmailTemplateView:
 
         # Button Add
         btn_add = Button(window, width=5, height=1, text="Add", command=self.addNewEmailTemplate)
-        btn_add.pack(side=RIGHT)
+        btn_add.pack()
 
         root.wait_window(window)  # wait until new window closes
 
@@ -83,7 +83,7 @@ class EmailTemplateView:
     def addNewEmailTemplate(self):
         window = Toplevel(self.root)  # Make new windows in the toplevel of main window
         window.wm_title("New Email Template")
-        window.geometry("350x300")
+        window.geometry("350x350")
 
         Label(window, text="New Email Templates").grid(pady=5,padx=65,
             column=2, row=1, sticky=E, columnspan=3)
@@ -119,13 +119,19 @@ class EmailTemplateView:
         Entry(window, width=15, textvariable=self.txt_img).grid(padx=5,
             column=3, row=8)
 
+        def save(self):
+            self.name=txt_name
+            self.subject=txt_subject
+            self.message=txt_message
+            self.image=txt_image
+
+
         #Button Upload
         Button(window, width=5, height=1, text="upload").grid(padx=5,
             column=4, row=8)
 
         #Button Save
-        Button(window, width=5, height=1, text="Save").grid(
+        Button(window, width=5, height=1, text="Save", command=save).grid(
             column=1, row= 9, columnspan=3, sticky=S)
 
-        window.grab_set_global()
         self.root.wait_window(window)  # wait until new window closes
