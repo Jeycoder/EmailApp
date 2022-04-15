@@ -17,15 +17,15 @@ class EmailTemplateController:
     #Add New Email template
     def add_email_template(self):
         #Attributes from View
-        #emailTemp = EmailTemplate()
-        #emailTemp.Name = self.view.txt_name
-        #emailTemp.Subject = self.view.txt_subject
-        #emailTemp.Message = self.view.txt_message
-        #emailTemp.Image = self.view.txt_img
-        #emailTemp.Name.get()
-        #emailTemp.Subject.get()
-        #emailTemp.Message.get()
-        #emailTemp.Image.get()
-        print("Add Email")
-        #return emailTemp.add()
+        emailTemp = EmailTemplate()
+        emailTemp.Name = self.view.txt_name
+        emailTemp.Subject = self.view.txt_subject
+        emailTemp.Message = self.view.txt_message
+        emailTemp.Image = self.view.txt_img
+        emailTemp.Name.get()
+        emailTemp.Subject.get()
+        emailTemp.Message.get()
+        emailTemp.Image.get()
+
+        return emailTemp.add()
 
