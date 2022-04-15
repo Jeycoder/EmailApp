@@ -1,5 +1,5 @@
-
 from models.db_conn import DBConnection  # Import DB Connection
+
 
 class EmailListModel:
 
@@ -16,9 +16,10 @@ class EmailListModel:
     # Retrieve all records in email_template table
     def fecth_all(self) -> object:
         try:
+            self.dbConnection = DBConnection()
             return self.dbConnection.fecth_all("SELECT IDList,Name,count(d.email_list_id) as numberEmails FROM "
-                                            "email_list l left join email_list_details d on l.IDList = "
-                                            "d.email_list_id group by IDList")
+                                               "email_list l left join email_list_details d on l.IDList = "
+                                               "d.email_list_id group by IDList")
         except Exception as err:
             print("An error has happened at trying get EmailLists from EmailListModel")
             print(err)
@@ -26,13 +27,14 @@ class EmailListModel:
     # Method to get all EmailList from DB
     def FetchAllEmailList(self):
         try:
+            self.dbConnection = DBConnection()
             return self.dbConnection.fecth_all("Select * From email_list")
         except Exception as err:
             print("An error has happened at trying get EmailLists from EmailListModel")
             print(err)
 
     # Insert new email List
-    def add(self,name_list, details_list):
+    def add(self, name_list, details_list):
         try:
             answer = False
             dbc = DBConnection()
@@ -46,7 +48,7 @@ class EmailListModel:
                 dbc.cursor.execute(
                     "INSERT INTO email_list_details(email_list_id, email_title, email_name, email_email) VALUES ("
                     "%s, %s,%s,%s)",
-                    (last_id,details_list[inx][0], details_list[inx][1], details_list[inx][2]))
+                    (last_id, details_list[inx][0], details_list[inx][1], details_list[inx][2]))
             cn.commit()
             answer = True
         except Exception as e:
@@ -58,8 +60,8 @@ class EmailListModel:
             dbc.close_cursor()
             return answer
 
-    #delete email list
-    def delete(self,id_list):
+    # delete email list
+    def delete(self, id_list):
         try:
             answer = False
             dbc = DBConnection()
@@ -93,11 +95,12 @@ class EmailListModel:
     def GetName(self):
         return self.Name
 
-    #Fecth details from a list
+    # Fecth details from a list
     def fecth_details(self, id_list):
         try:
+            self.dbConnection = DBConnection()
             return self.dbConnection.fecth_all("SELECT email_title, email_name, email_email FROM "
-                                            "email_list_details WHERE email_list_id = " + str(id_list))
+                                               "email_list_details WHERE email_list_id = " + str(id_list))
         except Exception as err:
             print("An error has happened at trying get EmailListsDetails from EmailListModel")
             print(err)

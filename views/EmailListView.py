@@ -199,6 +199,8 @@ class EmailListView:
 
                     # add new record to table details
                     self.table_details.insert('', END, values=record)
+                    #close the window
+                    self.combo_title_detail.master.destroy()
             else:
                 msge += "All fields are required"
             if msge != '':
@@ -223,6 +225,8 @@ class EmailListView:
                 if self.controller.add_email_list(self):
                     tkinter.messagebox.showinfo("Information", "Email List created successfully")
                     self.main_table()
+                    # close the window
+                    self.txt_name.master.destroy()
                 else:
                     tkinter.messagebox.showerror("Error", "Error creating Email List")
         except Exception as e:

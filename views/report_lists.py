@@ -1,6 +1,5 @@
 from tkinter import *
 
-
 class ReportList:
     def __init__(self, root):
         new_window = Toplevel(root)
