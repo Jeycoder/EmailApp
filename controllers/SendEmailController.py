@@ -11,7 +11,6 @@ from models.EmailListDetailsModel import EmailListDetails
 from models.EmailListModel import EmailListModel
 from models.EmailModel import EmailModel
 from models.EmailTemplateModel import EmailTemplate
-from models.UserEmailList import UserEmailList
 
 class SendEmailController:
     _subject = ""
