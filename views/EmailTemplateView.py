@@ -9,7 +9,7 @@ class EmailTemplateView:
         self.root = root
         window = Toplevel(root)  # Make new windows in the toplevel of main window
         window.wm_title("Email Templates")
-        window.geometry("700x500")
+        window.geometry("800x400")
 
         email_frame = Frame(window)
         email_frame.pack()
@@ -20,7 +20,7 @@ class EmailTemplateView:
         self.data_table(model)
         # table = ttk.Treeview(email_frame)
         self.table = TableCanvas(email_frame, model=model, cellbackgr='#e3f698', read_only=True, rowheight=30,
-                                 width=525)
+                                 width=700)
         self.table.show()
         # Add ACtions buttons
         self.actions_table()
@@ -32,7 +32,7 @@ class EmailTemplateView:
         btn_add = Button(window, width=5, height=1, text="Add", command=self.addNewEmailTemplate)
         btn_add.pack()
 
-        root.wait_window(window)  # wait until new window closes
+        root.wait_window(window)  # wait until new window close
 
     # CLICK SELECTOR
     def clickSelector(self, event):
@@ -52,6 +52,7 @@ class EmailTemplateView:
                 data[index]['Name'] = row[1]
                 data[index]['Subject'] = row[2]
                 data[index]['Message'] = row[3]
+                data[index]['Image'] = row[4]
                 data[index]['Actions'] = ''
                 index += 1
             model.importDict(data)
@@ -64,11 +65,7 @@ class EmailTemplateView:
             for row in self.listTemplates:
                 # Add new actions images
                 edit_image = PhotoImage(file="assets/icon_edit.png")
-                # Add button Edit
-                btn_edit = Button(self.table, width=1, height=1, text="E")
-                x1, y1, x2, y2 = self.table.getCellCoords(0, 4)
-                self.table.create_window(((x1 + 1), y1 + 1), anchor=NW, window=btn_edit)
-
+                x1, y1, x2, y2 = self.table.getCellCoords(0, 5)
                 # Add button Delete
                 btn_delete = Button(self.table, width=1, height=1, text="D")
                 self.table.create_window(((x1 + 50), y1 + 1), anchor=NW, window=btn_delete)
@@ -83,49 +80,52 @@ class EmailTemplateView:
     def addNewEmailTemplate(self):
         window = Toplevel(self.root)  # Make new windows in the toplevel of main window
         window.wm_title("New Email Template")
-        window.geometry("350x300")
+        window.geometry("350x350")
 
-        Label(window, text="New Email Templates").grid(pady=5,padx=65,
-            column=2, row=1, sticky=E, columnspan=3)
-        #label Name
-        Label(window, text="Name").grid(pady=5,
-            column=2, row=3, sticky=E)
-        #texbox Name
+        # Variebles Storage
         self.txt_name = StringVar()
-        Entry(window, width=25, textvariable=self.txt_name).grid(padx=5,
-            column=3, row=3, columnspan=2)
-
-        #Label Subject
-        Label(window, text="Subject").grid(pady=5,
-            column=2, row=4, sticky=E)
-        #texbox Subject
         self.txt_subject = StringVar()
-        Entry(window, width=25, textvariable=self.txt_subject).grid(padx=5,
-            column=3, row=4, columnspan=2)
-
-        #label Message
-        Label(window, text="Message").grid(pady=5,
-            column=2, row=5, sticky=E)
-        # texbox Message
         self.txt_message = StringVar()
-        Text(window, width=33, height= 10).grid(padx=5,
-            column=3, row=5, columnspan=2)
+        self.txt_img = StringVar()
 
-        #Label Image
+        Label(window, text="New Email Templates", font="Calibri 14 bold").grid(pady=5, padx=65,
+                                                                               column=2, row=1, sticky=E, columnspan=3)
+        # label Name
+        Label(window, text="Name").grid(pady=5,
+                                        column=2, row=3, sticky=E)
+        # texbox Name
+        Entry(window, width=25, textvariable=self.txt_name).grid(padx=5,
+                                                                 column=3, row=3, columnspan=2)
+
+        # Label Subject
+        Label(window, text="Subject").grid(pady=5,
+                                           column=2, row=4, sticky=E)
+        # texbox Subject
+        Entry(window, width=25, textvariable=self.txt_subject).grid(padx=5,
+                                                                    column=3, row=4, columnspan=2)
+
+        # label Message
+        Label(window, text="Message").grid(pady=5,
+                                           column=2, row=5, sticky=E)
+        # texbox Message
+
+        Text(window, width=33, height=10).grid(padx=5,
+                                               column=3, row=5, columnspan=2)
+
+        # Label Image
         Label(window, text="Image").grid(
             column=2, row=8, sticky=E)
         # texbox Image
-        self.txt_img = StringVar()
+
         Entry(window, width=15, textvariable=self.txt_img).grid(padx=5,
-            column=3, row=8)
+                                                                column=3, row=8)
 
-        #Button Upload
+        # Button Upload
         Button(window, width=5, height=1, text="upload").grid(padx=5,
-            column=4, row=8)
+                                                              column=4, row=8)
 
-        #Button Save
+        # Button Save
         Button(window, width=5, height=1, text="Save").grid(
-            column=1, row= 9, columnspan=3, sticky=S)
+            column=1, row=9, columnspan=3, sticky=S)
 
-        window.grab_set_global()
         self.root.wait_window(window)  # wait until new window closes
