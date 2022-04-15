@@ -1,4 +1,4 @@
-import mysql.connector #connect to databse
+import mysql.connector
 
 class DBConnection:
     def __init__(self) -> object:
@@ -6,8 +6,8 @@ class DBConnection:
        self.dbconnect = None
        self.rows = None
        self.host = "localhost"
-       self.user = "jessica"
-       self.password = "Valledupar123"
+       self.user = "deiby"
+       self.password = "Deiby123"
        self.db = "python"
        self.auth = "mysql_native_password"
 
@@ -20,7 +20,7 @@ class DBConnection:
                                                  auth_plugin=self.auth)
 
         self.cursor = self.dbconnect.cursor()
-        print("Conectado")
+        print("Connection to DB successfully")
 
     #Fecth all Rows
     def fecth_all(self, query):

@@ -1,5 +1,5 @@
 from tkinter import *
-from views.MainMenuView import MainMenu #class MainMenu
+from views.MainMenuView import MainMenu  # class MainMenu
 
 
 def main():
