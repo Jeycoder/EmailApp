@@ -3,6 +3,7 @@ from controllers.EmailTemplateController import EmailTemplateController
 from controllers.EmailListController import EmailListController
 from controllers.SendEmailController import SendEmailController
 from views.MainSendEmailView import MainSendEmailView
+from controllers.reportListController import reportListController
 from views.report_lists import ReportList
 
 
@@ -27,9 +28,9 @@ class MainMenu(Frame):
 
         #Reports submenu
         reports_menu = Menu(self.menuBar)
-        reports_menu.add_command(label="Email Lists", command=self.view_reports_list)
-        reports_menu.add_command(label="Email Templates")
-        reports_menu.add_command(label="Emails Sent")
+        reports_menu.add_command(label="Report List", command=self.view_reports_list)
+        reports_menu.add_command(label="Report Templates")
+        reports_menu.add_command(label="Report Sent")
         # add Reports menu to the Main Menu
         self. menuBar.add_cascade(label="Reports", menu=reports_menu)
 
@@ -39,7 +40,7 @@ class MainMenu(Frame):
         self.menuBar.entryconfig('Reports', state=DISABLED)
         self.menuBar.entryconfigure('Emails', state=DISABLED)
         # Call new Window
-        win = ReportList(self.parent)
+        win = reportListController(self.parent)
         # Enabled menu bar
         self.menuBar.entryconfig('Reports', state=NORMAL)
         self.menuBar.entryconfigure('Emails', state=NORMAL)

@@ -1,14 +1,18 @@
 import tkinter.messagebox
 from tkinter import *
+from tkinter import filedialog
 from tkinter.messagebox import showinfo
+
+import mysql
 from tkintertable import TableCanvas, TableModel
 from PIL import Image, ImageTk  # Library to work with images as icons
-
+from tkinter import filedialog
 
 
 class EmailTemplateView:
-
+    emailData =[]
     def __init__(self, controller: object, root: object) -> object:
+
         self.model = None
         self.table = None
         self.controller = controller
@@ -25,11 +29,11 @@ class EmailTemplateView:
 
         label.place(x=320, y=10)
         # Button Add
-        btn_add = Button(window, width=5, height=1, text="Add", command=self.addNewEmailTemplate)
-        btn_add.place(x=320,y=450)
+        btn_add = Button(window, width=30, height=1, text="Add New Template",
+                         command=self.add_new_email_template_view)
+        btn_add.place(x=290, y=420)
 
         root.wait_window(window)  # wait until new window close
-
 
     def main_table(self):
         # table Creation
@@ -46,9 +50,6 @@ class EmailTemplateView:
 
         # Add ACtions buttons
         self.actions_table()
-
-
-
 
     # CLICK SELECTOR
     def clickSelector(self, event):
@@ -99,17 +100,16 @@ class EmailTemplateView:
             print(str(e))
 
     # Window for add new template
-    def addNewEmailTemplate(self):
+    def add_new_email_template_view(self):
         window = Toplevel(self.root)  # Make new windows in the toplevel of main window
         window.wm_title("New Email Template")
         window.geometry("350x350")
 
         # Variebles Storage
-        self.txt_name = StringVar()
-        self.txt_subject = StringVar()
-        self.txt_message = StringVar()
         self.txt_img = StringVar()
-
+        self.txt_message = StringVar()
+        self.txt_subject = StringVar()
+        self.txt_name = StringVar()
 
         Label(window, text="New Email Templates", font="Calibri 14 bold").grid(pady=5, padx=65,
                                                                                column=2, row=1, sticky=E, columnspan=3)
@@ -132,7 +132,7 @@ class EmailTemplateView:
                                            column=2, row=5, sticky=E)
         # texbox Message
 
-        Text(window, width=33, height=10).grid(padx=5,
+        Entry(window,textvariable=self.txt_message).grid(padx=5,pady=10,ipadx=20,ipady=30,
                                                column=3, row=5, columnspan=2)
 
         # Label Image
@@ -140,15 +140,34 @@ class EmailTemplateView:
             column=2, row=8, sticky=E)
         # texbox Image
 
-        Entry(window, width=15, textvariable=self.txt_img).grid(padx=5,
-                                                                column=3, row=8)
+        imagetext=Label(window, width=15,text="Hola").grid(
+            padx=5, column=3, row=8)
 
         # Button Upload
-        Button(window, width=5, height=1, text="upload").grid(padx=5,
-                                                              column=4, row=8)
+        Button(window, width=5, height=1, text="upload", command=self.browse_image).grid(padx=5,
+                                                                                         column=4, row=8)
 
         # Button Save
-        Button(window, width=5, height=1, text="Save").grid(
+        Button(window, width=5, height=1, text="Save",command=self.add).grid(
             column=1, row=9, columnspan=3, sticky=S)
 
         self.root.wait_window(window)  # wait until new window closes
+
+    def save_template(self):
+        try:
+            self.controller.add_email_template(self)
+            self.main_table()
+        except Exception as e:
+            print("save_new_email_list " + str(e))
+           #tkinter.messagebox.showerror("Save template", "An error has occurred trying to save the template")
+
+    def browse_image(self):
+        filename = filedialog.askopenfilename(initialdir="/",
+                                              title="Select a Image",
+                                              filetypes=((".jpg",
+                                                          "*.jpg*"),
+                                                         ("all files",
+                                                          "*.*")))
+        self.imagetext.configure(text=self.filename)
+
+
