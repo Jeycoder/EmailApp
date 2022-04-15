@@ -1,131 +1,36 @@
-from tkinter import *
-from tkintertable import TableCanvas, TableModel
-from PIL import Image, ImageTk  # Library to work with images as icons
+import tkinter as tk
+from tkinter import ttk, N, S,W,E
+from tkinter.messagebox import showinfo
+from tkinter.ttk import Treeview
+
+class EmailListView:
+    def __init__(self, root, list_views):
+        super().__init__()
+
+        # configure the root window
+        self.title('Email List')
+        self.geometry('600x400+400+200')
+
+        # Main label
+        self.label = ttk.Label(self,font=("Arial", 16), text='List of Emails')
+        self.label.place(x=10, y=10)
+        #controls
+        tv = Treeview(self)
+        tv['columns'] = ('Name', 'Emails', 'Action')
+        tv.heading("#0", text='#', anchor='w')
+        tv.column("#0", anchor="w")
+        tv.heading('Name', text='Name')
+        tv.column('Name', anchor='center', width=100)
+        tv.heading('Emails', text='No of Emails')
+        tv.column('Emails', anchor='center', width=100)
+        tv.heading('Action', text='Action')
+        tv.column('Action', anchor='center', width=100)
+        tv.grid(sticky=(N, S, W, E))
+        self.treeview = tv
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
 
-class EmailListsView:
-    def __init__(self, root, list_templates):
-        self.listTemplates = list_templates
-        self.root = root
-        window = Toplevel(root)  # Make new windows in the toplevel of main window
-        window.wm_title("Email List")
-        window.geometry("700x300")
-
-        email_frame = Frame(window)
-        email_frame.pack()
-        label = Label(email_frame, text="Email List", font="Calibri 14 bold")
-
-        # table Creation
-        model = TableModel()
-        self.data_table(model)
-        # table = ttk.Treeview(email_frame)
-        self.table = TableCanvas(email_frame, model=model, cellbackgr='#e3f698', read_only=True, rowheight=30,
-                                 width=525)
-        self.table.show()
-        # Add ACtions buttons
-        self.actions_table()
-
-        label.grid(column=1, row=1)
-        self.table.grid(column=1, row=1)
-
-        # Button Add
-        btn_add = Button(window, width=5, height=1, text="Add", command=self.addNewEmailTemplate)
-        btn_add.pack(side=RIGHT)
-
-        root.wait_window(window)  # wait until new window closes
-
-    # CLICK SELECTOR
-    def clickSelector(self, event):
-        self.item = self.table.identify("item", event.x, event.y)
-        self.myID.set(self.table.item(self.item, "values")[0])
-        self.Vname.set(self.table.item(self.item, "values")[1])
-        self.Vsubject.set(self.table.item(self.item, "values")[2])
-        self.Vmessage.set(self.table.item(self.item, "values")[3])
-
-    def data_table(self, model):
-        try:
-            data = dict()
-            index = 0
-            for row in self.listTemplates:
-                data[index] = dict()
-                data[index]['Id'] = row[0]
-                data[index]['Name'] = row[1]
-                data[index]['Subject'] = row[2]
-                data[index]['Message'] = row[3]
-                data[index]['Actions'] = ''
-                index += 1
-            model.importDict(data)
-        except Exception as e:
-            print(str(e))
-
-    def actions_table(self):
-        try:
-            index = 0
-            for row in self.listTemplates:
-                # Add new actions images
-                edit_image = PhotoImage(file="assets/icon_edit.png")
-                # Add button Edit
-                btn_edit = Button(self.table, width=1, height=1, text="E")
-                x1, y1, x2, y2 = self.table.getCellCoords(0, 4)
-                self.table.create_window(((x1 + 1), y1 + 1), anchor=NW, window=btn_edit)
-
-                # Add button Delete
-                btn_delete = Button(self.table, width=1, height=1, text="D")
-                self.table.create_window(((x1 + 50), y1 + 1), anchor=NW, window=btn_delete)
-
-                index += 1
-
-            self.table.update()
-        except Exception as e:
-            print(str(e))
-
-    # Window for add new template
-    def addNewEmailTemplate(self):
-        window = Toplevel(self.root)  # Make new windows in the toplevel of main window
-        window.wm_title("New Email Template")
-        window.geometry("350x300")
-
-        Label(window, text="New Email Templates").grid(pady=5,padx=65,
-            column=2, row=1, sticky=E, columnspan=3)
-        #label Name
-        Label(window, text="Name").grid(pady=5,
-            column=2, row=3, sticky=E)
-        #texbox Name
-        self.txt_name = StringVar()
-        Entry(window, width=25, textvariable=self.txt_name).grid(padx=5,
-            column=3, row=3, columnspan=2)
-
-        #Label Subject
-        Label(window, text="Subject").grid(pady=5,
-            column=2, row=4, sticky=E)
-        #texbox Subject
-        self.txt_subject = StringVar()
-        Entry(window, width=25, textvariable=self.txt_subject).grid(padx=5,
-            column=3, row=4, columnspan=2)
-
-        #label Message
-        Label(window, text="Message").grid(pady=5,
-            column=2, row=5, sticky=E)
-        # texbox Message
-        self.txt_message = StringVar()
-        Text(window, width=33, height= 10).grid(padx=5,
-            column=3, row=5, columnspan=2)
-
-        #Label Image
-        Label(window, text="Image").grid(
-            column=2, row=8, sticky=E)
-        # texbox Image
-        self.txt_img = StringVar()
-        Entry(window, width=15, textvariable=self.txt_img).grid(padx=5,
-            column=3, row=8)
-
-        #Button Upload
-        Button(window, width=5, height=1, text="upload").grid(padx=5,
-            column=4, row=8)
-
-        #Button Save
-        Button(window, width=5, height=1, text="Save").grid(
-            column=1, row= 9, columnspan=3, sticky=S)
-
-        window.grab_set_global()
-        self.root.wait_window(window)  # wait until new window closes
+    def Show(self):
+        app = EmailListView()
+        app.mainloop()

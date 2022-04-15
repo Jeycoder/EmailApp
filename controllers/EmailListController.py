@@ -1,5 +1,5 @@
 from models.EmailTemplateModel import EmailTemplate
-from views.EmailListView import EmailListsView
+from views.EmailListView import EmailListView
 
 class EmailListController:
     #Initialize Controller
@@ -17,5 +17,4 @@ class EmailListController:
     #Add New Email template
     def add_emai_template(self):
         #Attributes from View
-
         emailTemp = EmailTemplate()
