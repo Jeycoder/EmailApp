@@ -1,6 +1,8 @@
 from tkinter import *
 from controllers.EmailTemplateController import EmailTemplateController
 from controllers.EmailListController import EmailListController
+from controllers.SendEmailController import SendEmailController
+from views.MainSendEmailView import MainSendEmailView
 from views.report_lists import ReportList
 
 
@@ -19,7 +21,7 @@ class MainMenu(Frame):
         emails_menu = Menu(self.menuBar)
         emails_menu.add_command(label="Templates", command=self.view_email_templates)
         emails_menu.add_command(label="Lists", command=self.view_email_Lists)
-        emails_menu.add_command(label="Send")
+        emails_menu.add_command(label="Send Emails", command=self.view_send_email)
         #add Emails menu to the Main Menu
         self.menuBar.add_cascade(label="Emails", menu=emails_menu)
 
@@ -42,7 +44,6 @@ class MainMenu(Frame):
         self.menuBar.entryconfig('Reports', state=NORMAL)
         self.menuBar.entryconfigure('Emails', state=NORMAL)
 
-
     def view_email_templates(self):
         # block menu bar
         self.menuBar.entryconfig('Reports', state=DISABLED)
@@ -53,7 +54,6 @@ class MainMenu(Frame):
         self.menuBar.entryconfig('Reports', state=NORMAL)
         self.menuBar.entryconfigure('Emails', state=NORMAL)
 
-
     def view_email_Lists(self):
         # block menu bar
         self.menuBar.entryconfig('Reports', state=DISABLED)
@@ -63,4 +63,15 @@ class MainMenu(Frame):
         #Enabled menu bar
         self.menuBar.entryconfig('Reports', state=NORMAL)
         self.menuBar.entryconfigure('Emails', state=NORMAL)
+
+    def view_send_email(self):
+        # Call new Window
+        emailController = SendEmailController(self.parent)
+        emailController.GetDataList()
+        view = MainSendEmailView(self.parent, emailController.listEmailList, emailController.listEmailTemplate)
+
+        # Enabled menu bar
+        self.menuBar.entryconfig('Reports', state=NORMAL)
+        self.menuBar.entryconfigure('Emails', state=NORMAL)
+
 

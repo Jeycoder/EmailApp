@@ -1,4 +1,6 @@
-class Email:
+from models.db_conn import DBConnection  # Import DB Connection
+
+class EmailModel:
     Email = ""
     BodyMessage = ""
     Subject = ""
@@ -7,4 +9,5 @@ class Email:
         self.Email = email
         self.BodyMessage = message
         self.Subject = subject
+
 

@@ -20,7 +20,6 @@ class DBConnection:
                                                  auth_plugin=self.auth)
 
         self.cursor = self.dbconnect.cursor()
-        print("Connection to DB successfully")
 
     #Fecth all Rows
     def fecth_all(self, query):
