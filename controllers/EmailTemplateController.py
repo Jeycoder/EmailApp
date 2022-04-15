@@ -2,30 +2,22 @@ from models.EmailTemplateModel import EmailTemplate
 from views.EmailTemplateView import EmailTemplateView
 
 class EmailTemplateController:
+    view = None
+
     #Initialize Controller
     def __init__(self, root):
-        list = self.fetchAllController()
-        self.view = EmailTemplateView(root, list)
+        self.view = EmailTemplateView(self, root)
 
 
 
     #Select all Email Templates from table
     def fetchAllController(self):
-        emailTemp = EmailTemplate()
-        return emailTemp.fecth_all()
+        email_temp = EmailTemplate()
+        return email_temp.fecth_all()
 
     #Add New Email template
-    def add_email_template(self):
+    def add_email_template(self,view):
         #Attributes from View
-        emailTemp = EmailTemplate()
-        emailTemp.Name = self.view.txt_name
-        emailTemp.Subject = self.view.txt_subject
-        emailTemp.Message = self.view.txt_message
-        emailTemp.Image = self.view.txt_img
-        emailTemp.Name.get()
-        emailTemp.Subject.get()
-        emailTemp.Message.get()
-        emailTemp.Image.get()
-
-        return emailTemp.add()
+        email_temp = EmailTemplate()
+        return email_temp.add(view.txt_name.get(),view.txt_subject.get(),view.txt_message.get(),view.txt_image.get(),view.email_temp)
 

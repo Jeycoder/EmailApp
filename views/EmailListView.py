@@ -126,7 +126,7 @@ class EmailListView:
             # Button Save
             Button(window, width=5, text="Save", command=self.save_new_email_list).place(x=170, y=450)
 
-            window.grab_set_global()
+
             self.root.wait_window(window)  # wait until new window closes
         except Exception as e:
             print("addNewEmailList " + str(e))
@@ -162,7 +162,7 @@ class EmailListView:
             # Button Save
             Button(window, width=5, text="Save", command=self.save_new_email).place(x=130, y=200)
 
-            window.grab_set_global()
+
             self.root.wait_window(window)  # wait until new window closes
         except Exception as e:
             print("addNewEmailList " + str(e))
