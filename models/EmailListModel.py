@@ -5,7 +5,6 @@ class EmailListModel:
 
     def __init__(self, tupleData):
         self.dbConnection = DBConnection()
-        self.dbconnect = None
         self.Id = 0
         self.Name = ''
         self.NumberEmails = 0
@@ -17,7 +16,9 @@ class EmailListModel:
     # Retrieve all records in email_template table
     def fecth_all(self) -> object:
         try:
-            return self.dbconnect.fecth_all("SELECT IDList,Name,count(d.email_list_id) as numberEmails FROM email_list l left join email_list_details d on l.IDList = d.email_list_id group by IDList")
+            return self.dbConnection.fecth_all("SELECT IDList,Name,count(d.email_list_id) as numberEmails FROM "
+                                            "email_list l left join email_list_details d on l.IDList = "
+                                            "d.email_list_id group by IDList")
         except Exception as err:
             print("An error has happened at trying get EmailLists from EmailListModel")
             print(err)
@@ -57,6 +58,29 @@ class EmailListModel:
             dbc.close_cursor()
             return answer
 
+    #delete email list
+    def delete(self,id_list):
+        try:
+            answer = False
+            dbc = DBConnection()
+            dbc.conn()
+            cn = dbc.dbconnect
+            cn.autocommit = False
+            cn.start_transaction()
+            dbc.cursor.execute(
+                "DELETE FROM email_list_details WHERE email_list_id=%s",
+                (id_list,))
+            dbc.cursor.execute("DELETE FROM email_list WHERE IDList =%s", (id_list,))
+            cn.commit()
+            answer = True
+        except Exception as e:
+            print("delete " + str(e))
+            cn.rollback()
+            answer = False
+        finally:
+            dbc.close_cursor()
+            return answer
+
     def SetId(self, id):
         self.IDList = id
 
@@ -68,3 +92,12 @@ class EmailListModel:
 
     def GetName(self):
         return self.Name
+
+    #Fecth details from a list
+    def fecth_details(self, id_list):
+        try:
+            return self.dbConnection.fecth_all("SELECT email_title, email_name, email_email FROM "
+                                            "email_list_details WHERE email_list_id = " + str(id_list))
+        except Exception as err:
+            print("An error has happened at trying get EmailListsDetails from EmailListModel")
+            print(err)

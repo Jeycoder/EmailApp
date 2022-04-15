@@ -31,3 +31,13 @@ class EmailListController:
         # Attributes from View
         email_list = EmailListModel({})
         return email_list.add(view.txt_name.get(), view.emailDetails)
+
+    #Delete an Email List
+    def delete_email_list(self, idList):
+        email_list = EmailListModel({})
+        return email_list.delete(idList)
+
+    # Select Email Lists Details
+    def fetch_details_controller(self, idList):
+        email_list = EmailListModel({})
+        return email_list.fecth_details(idList)
