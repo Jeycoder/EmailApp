@@ -3,9 +3,9 @@ from controllers.EmailTemplateController import EmailTemplateController
 from controllers.EmailListController import EmailListController
 from controllers.SendEmailController import SendEmailController
 from views.MainSendEmailView import MainSendEmailView
-from controllers.reportListController import reportListController
-from views.report_lists import ReportList
-
+from controllers.ReportListController import ReportListController
+from controllers.reportTemplateController import ReportTemplateController
+from controllers.reportEmailSentController import ReportEmailSentController
 
 class MainMenu(Frame):
 
@@ -28,19 +28,41 @@ class MainMenu(Frame):
 
         #Reports submenu
         reports_menu = Menu(self.menuBar)
+        reports_menu.add_command(label="Report Templates", command=self.view_reports_template)
         reports_menu.add_command(label="Report List", command=self.view_reports_list)
-        reports_menu.add_command(label="Report Templates")
-        reports_menu.add_command(label="Report Sent")
+        reports_menu.add_command(label="Report Sent", command=self.view_emails_sent)
         # add Reports menu to the Main Menu
         self. menuBar.add_cascade(label="Reports", menu=reports_menu)
 
-    #Call Email Templates View
+    #Call Report List
     def view_reports_list(self):
         # block menu bar
         self.menuBar.entryconfig('Reports', state=DISABLED)
         self.menuBar.entryconfigure('Emails', state=DISABLED)
         # Call new Window
-        win = reportListController(self.parent)
+        win = ReportListController(self.parent)
+        # Enabled menu bar
+        self.menuBar.entryconfig('Reports', state=NORMAL)
+        self.menuBar.entryconfigure('Emails', state=NORMAL)
+
+    # Call Report Templates
+    def view_reports_template(self):
+        # block menu bar
+        self.menuBar.entryconfig('Reports', state=DISABLED)
+        self.menuBar.entryconfigure('Emails', state=DISABLED)
+        # Call new Window
+        win = ReportTemplateController(self.parent)
+        # Enabled menu bar
+        self.menuBar.entryconfig('Reports', state=NORMAL)
+        self.menuBar.entryconfigure('Emails', state=NORMAL)
+
+    # Call Report Emails Sent
+    def view_reports_template(self):
+        # block menu bar
+        self.menuBar.entryconfig('Reports', state=DISABLED)
+        self.menuBar.entryconfigure('Emails', state=DISABLED)
+        # Call new Window
+        win = ReportTemplateController(self.parent)
         # Enabled menu bar
         self.menuBar.entryconfig('Reports', state=NORMAL)
         self.menuBar.entryconfigure('Emails', state=NORMAL)
@@ -51,6 +73,16 @@ class MainMenu(Frame):
         self.menuBar.entryconfigure('Emails', state=DISABLED)
         #Call new Window
         win = EmailTemplateController(self.parent)
+        #Enabled menu bar
+        self.menuBar.entryconfig('Reports', state=NORMAL)
+        self.menuBar.entryconfigure('Emails', state=NORMAL)
+
+    def view_emails_sent(self):
+        # block menu bar
+        self.menuBar.entryconfig('Reports', state=DISABLED)
+        self.menuBar.entryconfigure('Emails', state=DISABLED)
+        #Call new Window
+        win = ReportEmailSentController(self.parent)
         #Enabled menu bar
         self.menuBar.entryconfig('Reports', state=NORMAL)
         self.menuBar.entryconfigure('Emails', state=NORMAL)

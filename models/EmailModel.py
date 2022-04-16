@@ -1,5 +1,6 @@
 from models.db_conn import DBConnection  # Import DB Connection
 
+
 class EmailModel:
     Email = ""
     BodyMessage = ""
@@ -9,5 +10,3 @@ class EmailModel:
         self.Email = email
         self.BodyMessage = message
         self.Subject = subject
-
-

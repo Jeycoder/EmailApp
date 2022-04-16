@@ -11,6 +11,7 @@ from models.EmailListDetailsModel import EmailListDetails
 from models.EmailListModel import EmailListModel
 from models.EmailModel import EmailModel
 from models.EmailTemplateModel import EmailTemplate
+from models.reportEmailSentModel import ReportEmailSentModel
 
 class SendEmailController:
     _subject = ""
@@ -48,6 +49,9 @@ class SendEmailController:
                     usernameReplace = "{Username}"
                     titleReplace = "{Title}"
 
+                    #Save template_id and list_id
+                    self.id_temp = templateList[0]
+                    self.id_list = emailListId
 
                     # Setting the data to be replaced
                     emailBody = templateList[3]
@@ -73,6 +77,7 @@ class SendEmailController:
         session.starttls()
         session.login(senderEmail, senderPassword)
 
+        index = 0
         # Iterating each user to send email to any of those
         for bodyMessage in emailsToSend:
             # Setting up the MIME
@@ -88,7 +93,10 @@ class SendEmailController:
             plainText = messageToSend.as_string()
             session.sendmail(senderEmail, bodyMessage.Email, plainText)
             print('Email to ' + bodyMessage.Email + ' has been successfully sent!')
-
+            index +=1
+        #Save information into database
+        email_sent_model = ReportEmailSentModel()
+        email_sent_model.add(self.id_list, self.id_temp, index)
         # Closing session
         session.quit()
 
