@@ -43,7 +43,6 @@ class ReportEmailSentModel:
         except Exception as e:
             print("add " + str(e))
             cn.rollback()
-
             answer = False
         finally:
             dbc.close_cursor()

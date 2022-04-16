@@ -101,43 +101,33 @@ class EmailListView:
             window = Toplevel(self.root)  # Make new windows in the toplevel of main window
             window.wm_title("New Email List ")
             window.geometry("400x500")
-
             Label(window, text="New Email List", font="Calibri 14 bold").place(x=160, y=20)
             # label Name
             Label(window, text="Name").place(x=20, y=80)
             # texbox Name
             self.txt_name = Entry(window, width=25)
             self.txt_name.place(x=120, y=80)
-
             frame = Frame(window)
             frame.pack()
-
             # Setting Columns  for the table
             columns = ("Title", "Name", "Email")
-
             # Table Details
             self.table_details = Treeview(frame, columns=columns, show='headings')
-
             # Creating columns
             self.table_details.column("Title", anchor=CENTER, width=60)
             self.table_details.column("Name", anchor=CENTER, width=150)
             self.table_details.column("Email", anchor=CENTER, width=150)
-
             # setting the heading
             self.table_details.heading("Title", text="Title", anchor=CENTER)
             self.table_details.heading("Name", text="Name", anchor=CENTER)
             self.table_details.heading("Email", text="Email Address", anchor=CENTER)
-
             # Button add new Email
             add_icon = PhotoImage(file=os.path.abspath('assets/icon_add.png'))
             Button(window, image=add_icon, command=self.add_new_email_view).place(x=300, y=130)
-
             frame.place(x=20, y=160)
             self.table_details.pack()
             # Button Save
             Button(window, width=5, text="Save", command=self.save_new_email_list).place(x=170, y=450)
-
-
             self.root.wait_window(window)  # wait until new window closes
         except Exception as e:
             print("addNewEmailList " + str(e))

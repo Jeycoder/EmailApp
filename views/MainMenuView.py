@@ -4,7 +4,7 @@ from controllers.EmailListController import EmailListController
 from controllers.SendEmailController import SendEmailController
 from views.MainSendEmailView import MainSendEmailView
 from controllers.ReportListController import ReportListController
-from controllers.reportTemplateController import ReportTemplateController
+from controllers.ReportTemplateController import ReportTemplateController
 from controllers.reportEmailSentController import ReportEmailSentController
 
 class MainMenu(Frame):
